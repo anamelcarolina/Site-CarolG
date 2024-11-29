@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Quiz - Amor & Perguntas</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #faf5ff;
+        margin: 0;
+        padding: 0;
+      }
+
+      .quiz-container {
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #a855f7;
+      }
+
+      .question {
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+      }
+
+      .answers {
+        list-style: none;
+        padding: 0;
+      }
+
+      .answers li {
+        margin: 10px 0;
+        cursor: pointer;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        text-align: center;
+        transition: background-color 0.3s;
+      }
+
+      .answers li:hover {
+        background-color: #d1d1d1;
+      }
+
+      .btn-submit {
+        display: none;
+        width: 100%;
+        background-color: #a855f7;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+
+      .btn-submit:hover {
+        background-color: #9333ea;
+      }
+
+      .result {
+        display: none;
+        text-align: center;
+        font-size: 1.2rem;
+        margin-top: 20px;
+      }
+
+      .correct {
+        color: green;
+      }
+
+      .wrong {
+        color: red;
+      }
+
+      .quiz-container {
+  max-width: 600px;
+  margin: 300px auto 50px auto; /* Adicionado margem superior para afastar da navbar */
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav__content">
+        <div class="logo"><a href="#">Carol</a></div>
+        <label for="check" class="checkbox">
+          <i class="ri-menu-line"></i>
+        </label>
+        <input type="checkbox" name="check" id="check" />
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="presentes.html">Presentes</a></li>
+            <li><a href="contador.html">Contagem Regressiva</a></li>
+            <li><a href="cartas.html">Cartas Românticas</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="quiz-container">
+      <h1>Quiz de Amor</h1>
+      <div id="quiz">
+        <div class="question" id="question">Qual é o dia do meu aniversário?</div>
+        <ul class="answers">
+          <li onclick="checkAnswer('25/12/2000')">25/12/2000</li>
+          <li onclick="checkAnswer('01/01/1999')">01/01/1999</li>
+          <li onclick="checkAnswer('06/08/2004')">06/08/2004</li>
+          <li onclick="checkAnswer('14/02/2005')">14/02/2005</li>
+        </ul>
+        <button class="btn-submit" onclick="nextQuestion()">Próxima Pergunta</button>
+      </div>
+
+      <div class="result">
+        <p id="resultMessage"></p>
+        <p id="correctAnswers"></p>
+      </div>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          question: "Qual é o dia do meu aniversário?",
+          correctAnswer: "06/08/2004",
+          options: [
+            "25/12/2000",
+            "01/01/1999",
+            "06/08/2004",
+            "14/02/2005",
+          ],
+        },
+        {
+          question: "Qual é a minha cor favorita?",
+          correctAnswer: "amarelo",
+          options: ["vermelho", "azul", "amarelo", "verde"],
+        },
+        {
+          question: "Vai me dar o cu?",
+          correctAnswer: "sim",
+          options: ["sim", "não"],
+        },
+        {
+          question: "Onde iremos morar?",
+          correctAnswer: "qualquer",
+          options: [
+            "Asa Sul",
+            "Paris",
+            "Interior da Itália",
+            "Lago",
+            "Suíça",
+            "Serra Leoa",
+          ],
+        },
+        {
+          question: "Vou me casar com você?",
+          correctAnswer: "com certeza",
+          options: ["com certeza", "sim", "claro"],
+        },
+        {
+          question: "Você me ama mais que tudo nesse mundo?",
+          correctAnswer: "com certeza",
+          options: ["com certeza", "sim", "claro"],
+        },
+      ];
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+
+      function loadQuestion() {
+        const questionData = questions[currentQuestionIndex];
+        const questionElement = document.getElementById("question");
+        questionElement.innerText = questionData.question;
+
+        const answersList = document.querySelector(".answers");
+        answersList.innerHTML = "";
+
+        questionData.options.forEach((option) => {
+          const li = document.createElement("li");
+          li.innerText = option;
+          li.onclick = function () {
+            checkAnswer(option);
+          };
+          answersList.appendChild(li);
+        });
+      }
+
+      function checkAnswer(selectedAnswer) {
+        const correctAnswer = questions[currentQuestionIndex].correctAnswer;
+        const resultMessage = document.getElementById("resultMessage");
+
+        // Condição para a pergunta de "Onde iremos morar?"
+        if (correctAnswer === "qualquer") {
+          score++;
+          resultMessage.classList.add("correct");
+          resultMessage.classList.remove("wrong");
+          resultMessage.innerText = "Resposta correta!";
+        } else if (selectedAnswer === correctAnswer) {
+          score++;
+          resultMessage.classList.add("correct");
+          resultMessage.classList.remove("wrong");
+          resultMessage.innerText = "Resposta correta!";
+        } else {
+          resultMessage.classList.add("wrong");
+          resultMessage.classList.remove("correct");
+          resultMessage.innerText = "Resposta errada!";
+        }
+
+        document.querySelector(".btn-submit").style.display = "block";
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          loadQuestion();
+          document.querySelector(".btn-submit").style.display = "none";
+        } else {
+          showFinalResult();
+        }
+      }
+
+      function showFinalResult() {
+        document.getElementById("quiz").style.display = "none";
+        const resultElement = document.querySelector(".result");
+        resultElement.style.display = "block";
+        const finalMessage = `Você acertou ${score} de ${questions.length} perguntas.`;
+        document.getElementById("resultMessage").innerText = finalMessage;
+        document.getElementById("correctAnswers").innerText = `Respostas corretas: \n${questions
+          .map(
+            (q) => `${q.question} - ${q.correctAnswer}`
+          )
+          .join("\n")}`;
+      }
+
+      loadQuestion();
+    </script>
+  </body>
+</html>
+
+
+
+

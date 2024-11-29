@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Contagem do Tempo de Namoro</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #faf5ff;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #ffffff;
+        z-index: 99;
+        padding: 1.5rem 1rem;
+      }
+
+      .nav__content {
+        max-width: 1200px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      nav .logo a {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #a855f7;
+      }
+
+      ul {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        list-style: none;
+      }
+
+      ul li a {
+        font-weight: 600;
+        color: #1f2937;
+        transition: 0.3s;
+      }
+
+      ul li a:hover {
+        color: #a855f7;
+      }
+
+      .countdown-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 150px;
+        text-align: center;
+        padding: 50px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #a855f7;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      .countdown-box {
+        display: flex;
+        gap: 30px;
+      }
+
+      .countdown-box div {
+        background-color: #f3f4f6;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
+      }
+
+      .countdown-box span {
+        display: block;
+        font-size: 1rem;
+        color: #6b7280;
+      }
+
+      .btn-home {
+        margin-top: 30px;
+        background-color: #a855f7;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border: none;
+        transition: 0.3s;
+      }
+
+      .btn-home:hover {
+        background-color: #9333ea;
+      }
+      .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300vh; /* Faz a altura ocupar toda a tela */
+  text-align: center;
+  padding: 120px 20px 20px; /* Aumentei o padding superior */
+}
+
+.countdown {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav__content">
+        <div class="logo"><a href="#">Carol</a></div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="presentes.html">Presentes</a></li>
+            <li><a href="contador.html">Contagem Regressiva</a></li>
+            <li><a href="cartas.html">Cartas Românticas</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="countdown-container">
+      <h1>Contagem do Tempo de Namoro</h1>
+      <div class="countdown-box">
+        <div>
+          <span>Tempo</span>
+          <p id="days">0</p> <span>dias</span>
+        </div>
+        <div>
+          <span>Horas</span>
+          <p id="hours">0</p> <span>horas</span>
+        </div>
+        <div>
+          <span>Minutos</span>
+          <p id="minutes">0</p> <span>minutos</span>
+        </div>
+        <div>
+          <span>Segundos</span>
+          <p id="seconds">0</p> <span>segundos</span>
+        </div>
+      </div>
+      <button class="btn-home" onclick="goHome()">Voltar para Home</button>
+    </div>
+
+    <script>
+      const startDate = new Date("March 24, 2024 00:00:00").getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = now - startDate;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+      }
+
+      const countdownInterval = setInterval(updateCountdown, 1000);
+
+      function goHome() {
+        window.location.href = "index.html";
+      }
+
+      updateCountdown(); // Initial call to show the countdown immediately
+    </script>
+  </body>
+</html>

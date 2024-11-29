@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Gerador de Cartas Românticas</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #faf5ff;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #ffffff;
+        z-index: 99;
+        padding: 1.5rem 1rem;
+      }
+
+      .nav__content {
+        max-width: 1200px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      nav .logo a {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #a855f7;
+      }
+
+      ul {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        list-style: none;
+      }
+
+      ul li a {
+        font-weight: 600;
+        color: #1f2937;
+        transition: 0.3s;
+      }
+
+      ul li a:hover {
+        color: #a855f7;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 300px 20px 20px; /* Ajustado o padding superior para mais espaço */
+        text-align: center;
+      }
+
+      .container h1 {
+        color: #a855f7;
+        font-size: 3rem;
+        margin-bottom: 30px;
+      }
+
+      .card {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: auto;
+        text-align: center;
+        font-size: 1.1rem;
+        color: #1f2937;
+      }
+
+      .card .greeting {
+        font-weight: 600;
+        color: #a855f7;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+
+      .card .message {
+        margin: 20px 0;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #6b7280;
+      }
+
+      .card .signature {
+        margin-top: 30px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #a855f7;
+      }
+
+      .button-container {
+        margin-top: 40px;
+      }
+
+      .generate-btn {
+        background-color: #a855f7;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        border: none;
+        transition: 0.3s;
+        letter-spacing: 1px;
+      }
+
+      .generate-btn:hover {
+        background-color: #9333ea;
+      }
+
+      .home-btn {
+        margin-top: 20px;
+        background-color: #f3f4f6;
+        color: #1f2937;
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+        border: none;
+        transition: 0.3s;
+      }
+
+      .home-btn:hover {
+        background-color: #a855f7;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav__content">
+        <div class="logo"><a href="#">Carol</a></div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="presentes.html">Presentes</a></li>
+            <li><a href="contador.html">Contagem Regressiva</a></li>
+            <li><a href="cartas.html">Cartas Românticas</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>Gerador de Cartas Românticas</h1>
+      <div class="card" id="card">
+        <p class="greeting">Querido Amorzinho,</p>
+        <p class="message">
+          Você ilumina minha vida de uma forma única. A cada dia ao seu lado,
+          me sinto mais feliz e grato por tudo o que você representa para mim. 
+          Sua presença faz tudo ficar mais bonito, e o amor que sentimos um pelo
+          outro é algo indescritível. 
+        </p>
+        <p class="signature">Com todo o meu amor, Carol</p>
+      </div>
+      <div class="button-container">
+        <button class="generate-btn" onclick="generateLetter()">Gerar Nova Carta</button>
+        <button class="home-btn" onclick="goHome()">Voltar para Home</button>
+      </div>
+    </div>
+
+    <script>
+      const greetings = [
+        "Querido Amorzinho,",
+        "Amor da minha vida,",
+        "Minha razão de viver,",
+        "Para o meu eterno amor,",
+      ];
+
+      const messages = [
+        "Você ilumina minha vida de uma forma única. A cada dia ao seu lado, me sinto mais feliz e grato por tudo o que você representa para mim. Sua presença faz tudo ficar mais bonito, e o amor que sentimos um pelo outro é algo indescritível.",
+        "Estar com você é o melhor momento do meu dia, e a cada instante ao seu lado, meu amor por você só cresce. Obrigado por me fazer sentir tão amado e especial. Nunca quero me separar de você.",
+        "A vida ao seu lado é um presente, e cada momento ao seu lado se torna uma memória preciosa que carrego comigo. Eu te amo mais do que palavras podem expressar e sou grata por você existir.",
+        "Você é tudo o que sempre sonhei, e cada dia ao seu lado só me faz te amar mais e mais. O nosso amor é a coisa mais bonita que já aconteceu na minha vida, e por isso, sou eternamente grata.",
+      ];
+
+      const signatures = [
+        "Com todo o meu amor, Carol",
+        "Com carinho, Carol",
+        "Para sempre sua, Carol",
+        "Com todo meu coração, Carol",
+      ];
+
+      function generateLetter() {
+        const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+        const message = messages[Math.floor(Math.random() * messages.length)];
+        const signature = signatures[Math.floor(Math.random() * signatures.length)];
+
+        document.querySelector(".greeting").innerText = greeting;
+        document.querySelector(".message").innerText = message;
+        document.querySelector(".signature").innerText = signature;
+      }
+
+      function goHome() {
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>
